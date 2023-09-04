@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Register;
 use Illuminate\Http\Request;
 
 class BasicController extends Controller
@@ -33,8 +34,8 @@ class BasicController extends Controller
         $request->validate(
             [
                 'name' => 'required|min:3|max:10',
-                'email' => 'required|email|regex:/[a-zA-Z0-9\-]{5,}@[a-z]{2,}[\.][a-z]{2,}[\.]*[a-z]*/',
-                'username' => 'required|between:5,15',
+                'email' => 'required|email|regex:/[a-zA-Z0-9\-]{5,}@[a-z]{2,}[\.][a-z]{2,}[\.]*[a-z]*/|unique:register,email',
+                'username' => 'required|between:5,15|unique:register,username',
                 'city' => 'required',
                 'password' => 'required',
                 'confirm_password' => 'required|same:password'
@@ -50,13 +51,50 @@ class BasicController extends Controller
                 'password.required' => 'Password is required !',
                 'confirm_password.required' => 'Confirm Password is required !',
                 'confirm_password.same' => 'Confirm Password must match with Password',
-
             ]
         );
 
 
+        // Insert query 
+        $register = new Register();
 
-        echo "<pre>";
-        print_r($request->all());
+        // table column name , column attribute 
+        $register->name = $request->name;
+        $register->username = $request->username;
+        $register->city = $request->city;
+        $register->email = $request->email;
+        $register->password = $request->password;
+        
+        $register->save();
+
+        return redirect('/users');
     }
+
+    public function user()
+    {
+
+        $users = Register::all();
+
+        // echo "<pre>";
+        // print_r($users->toArray());
+
+        $data = compact('users');
+
+        return view('user')->with($data);
+    }
+
+    public function delete($id){
+        $new_id = $id/333;
+        $del = Register::find($new_id);
+
+
+        if(!is_null($del)){
+            $del->delete();
+
+        }
+
+        return redirect('/users');
+
+    }
+
 }
