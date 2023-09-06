@@ -43,3 +43,7 @@ Route::get('/contact', [BasicController::class, 'contact'])->name('contact');
 Route::post('/contact', [BasicController::class, 'register']);
 
 Route::get('/delete/{id}', [BasicController::class, 'delete'])->name('delete');
+
+Route::get('/edit/{id}', [BasicController::class, 'edit'])->name('edit');
+
+Route::post('/update/{id}', [BasicController::class, 'update'])->name('update');

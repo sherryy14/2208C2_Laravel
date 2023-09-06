@@ -38,7 +38,7 @@
 
 <div class="container">
     <div class="row">
-        @foreach ($product as $item)
+        {{-- @foreach ($product as $item)
             
         <div class="col-md-3">
             <div class="card" style="width: 18rem;">
@@ -52,7 +52,14 @@
             </div>
         </div>
         
-        @endforeach
+        @endforeach --}}
+
+
+        <x-card img='product-img-1.jpg' title='Title 1' desc='Some text 1' price='150' />
+        
+        <x-card img='product-img-2.jpg' title='Title 2' desc='Some text 2' price='151' />
+ 
+
     </div>
 </div>
 

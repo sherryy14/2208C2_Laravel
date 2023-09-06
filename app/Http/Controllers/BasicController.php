@@ -23,13 +23,13 @@ class BasicController extends Controller
     }
     public function contact()
     {
-        return view('contact');
+        $url = url('/contact');
+        $title = 'Add';
+        return view('contact',['url'=>$url, 'title'=>$title]);
     }
-
 
     public function register(Request $request)
     {
-
         // $request->validate([validaton],[custom validation])
         $request->validate(
             [
@@ -85,6 +85,7 @@ class BasicController extends Controller
 
     public function delete($id){
         $new_id = $id/333;
+        // Find PK ko target krta hy 
         $del = Register::find($new_id);
 
 
@@ -97,4 +98,37 @@ class BasicController extends Controller
 
     }
 
+    public function edit($id){
+
+        // echo $id;
+        $edit_user = Register::find($id);
+
+        // /update/6
+        $url = url('/update'). '/'. $id;
+        $title = 'Update';
+
+        // $data = compact('edit_user');
+
+        // return view('contact')->with($data);
+
+        return view('contact',['user'=>$edit_user, 'url' =>$url,'title'=>$title]);
+
+    }
+
+    public function update($id, Request $request){
+
+        $user = Register::find($id);
+
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->city = $request->city;
+        $user->email = $request->email;
+        
+        $user->save();
+
+        // return view('user');
+
+        return redirect('/users');
+
+    }
 }

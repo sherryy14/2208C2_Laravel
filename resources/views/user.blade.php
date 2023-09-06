@@ -34,10 +34,10 @@
             <td>{{$user->city}}</td>
             <td>{{$user->created_at}}</td>
             <td>
+                <a href="edit/{{$user->reg_id}}" class="btn btn-warning">Edit</a>
                 <a href="delete/{{$user->reg_id *333}}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
-        
         @endforeach
     </tbody>
 </table>
