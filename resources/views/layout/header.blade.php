@@ -37,6 +37,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('user') }}">Users</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('deleted_user') }}">Trashed User</a>
+                    </li>
 
                 </ul>
             </div>

@@ -38,8 +38,10 @@ Route::get('/users', [BasicController::class, 'user'])->name('user');
 // /contact -> url pe show krega
 // contact -> function name hai 
 // contact name define kya hy
-Route::get('/contact', [BasicController::class, 'contact'])->name('contact');
 
+Route::get('/deleted', [BasicController::class, 'deleted_user'])->name('deleted_user');
+
+Route::get('/contact', [BasicController::class, 'contact'])->name('contact');
 Route::post('/contact', [BasicController::class, 'register']);
 
 Route::get('/delete/{id}', [BasicController::class, 'delete'])->name('delete');
@@ -47,3 +49,8 @@ Route::get('/delete/{id}', [BasicController::class, 'delete'])->name('delete');
 Route::get('/edit/{id}', [BasicController::class, 'edit'])->name('edit');
 
 Route::post('/update/{id}', [BasicController::class, 'update'])->name('update');
+
+Route::get('/restore/{id}', [BasicController::class, 'restore'])->name('restore');
+
+Route::get('/force/{id}', [BasicController::class, 'force'])->name('force');
+

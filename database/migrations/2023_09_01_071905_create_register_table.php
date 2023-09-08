@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('email',50)->nullable();
             $table->string('password',100);
             $table->timestamps(); // created_at updated_at
+            $table->softDeletes(); 
+
         });
     }
 

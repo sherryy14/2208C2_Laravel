@@ -21,6 +21,7 @@ class BasicController extends Controller
     {
         return view('product');
     }
+
     public function contact()
     {
         $url = url('/contact');
@@ -84,9 +85,9 @@ class BasicController extends Controller
     }
 
     public function delete($id){
-        $new_id = $id/333;
+    
         // Find PK ko target krta hy 
-        $del = Register::find($new_id);
+        $del = Register::find($id);
 
 
         if(!is_null($del)){
@@ -131,4 +132,28 @@ class BasicController extends Controller
         return redirect('/users');
 
     }
+
+    public function deleted_user()
+    {
+        $users = Register::onlyTrashed()->get();
+
+        return view('delete-user',['users'=>$users]);
+    }
+
+    public function restore($id){
+        $user = Register::withTrashed()
+        ->where('reg_id', $id)
+        ->restore();
+
+        return redirect('/users');
+    }
+    
+    public function force($id){
+        $user = Register::withTrashed()
+        ->where('reg_id', $id)
+        ->forceDelete();
+
+        return redirect('/deleted');
+    }
+
 }

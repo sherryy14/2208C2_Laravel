@@ -9,7 +9,7 @@
 @section('section')
 
 <div class="container">
-<h1 class="text-center">Users</h1>
+<h1 class="text-center">Trashed Users</h1>
 
 <table class="table table-dark">
     <thead>
@@ -19,7 +19,7 @@
             <th>Username</th>
             <th>Email</th>
             <th>City</th>
-            <th>Created At</th>
+            <th>Deleted At</th>
          
             <th>Action</th>
         </tr>
@@ -33,11 +33,11 @@
             <td>{{$user->username}}</td>
             <td>{{$user->email}}</td>
             <td>{{$user->city}}</td>
-            <td>{{$user->created_at}}</td>
+            <td>{{$user->deleted_at}}</td>
            
             <td>
-                <a href="edit/{{$user->reg_id}}" class="btn btn-warning">Edit</a>
-                <a href="delete/{{$user->reg_id}}" class="btn btn-danger">Trash</a>
+                <a href="restore/{{$user->reg_id}}" class="btn btn-success">Restore</a>
+                <a href="force/{{$user->reg_id}}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         @endforeach

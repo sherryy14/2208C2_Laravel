@@ -54,10 +54,14 @@
         
         @endforeach --}}
 
+@php
+    $prices = 150;
+@endphp
 
-        <x-card img='product-img-1.jpg' title='Title 1' desc='Some text 1' price='150' />
-        
-        <x-card img='product-img-2.jpg' title='Title 2' desc='Some text 2' price='151' />
+
+        <x-card img='product-img-1.jpg' title='Title 1' desc='Some text 1' :price="$prices" />
+
+        <x-card img='product-img-2.jpg' title='Title 2' desc='Some text 2' :price="$prices" />
  
 
     </div>
