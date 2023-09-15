@@ -27,7 +27,7 @@ class BasicController extends Controller
     {
         $url = url('/contact');
         $title = 'Add';
-        return view('contact',['url'=>$url, 'title'=>$title]);
+        return view('contact', ['url' => $url, 'title' => $title]);
     }
 
     public function register(Request $request)
@@ -65,17 +65,18 @@ class BasicController extends Controller
         $register->username = $request->username;
         $register->city = $request->city;
         $register->email = $request->email;
+        // $register->image = $request->image;
         $register->password = Hash::make($request->password);
 
-        
-        session(['username' => $request->username]);       
-        session(['useremail' => $request->email]);   
-            
-        $register->save();
 
+        session(['username' => $request->username]);
+        session(['useremail' => $request->email]);
+
+        $register->save();
+        // $request->file('image')->store('upload');
 
         // set session
-        
+
         // get session
         // $request->session()->get('username');
 
@@ -83,16 +84,18 @@ class BasicController extends Controller
         return redirect('/users');
     }
 
-    function delSession(){
+    function delSession()
+    {
         session()->forget('username');
     }
 
-    function flash(){
+    function flash()
+    {
         // session()->flash('status', 'Task was successful!');
 
         // echo session()->get('status');
     }
- 
+
     public function user()
     {
 
@@ -107,39 +110,39 @@ class BasicController extends Controller
         return view('user')->with($data);
     }
 
-    public function delete($id){
-    
+    public function delete($id)
+    {
+
         // Find PK ko target krta hy 
         $del = Register::find($id);
 
 
-        if(!is_null($del)){
+        if (!is_null($del)) {
             $del->delete();
-
         }
 
         return redirect('/users');
-
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
 
         // echo $id;
         $edit_user = Register::find($id);
 
         // /update/6
-        $url = url('/update'). '/'. $id;
+        $url = url('/update') . '/' . $id;
         $title = 'Update';
 
         // $data = compact('edit_user');
 
         // return view('contact')->with($data);
 
-        return view('contact',['user'=>$edit_user, 'url' =>$url,'title'=>$title]);
-
+        return view('contact', ['user' => $edit_user, 'url' => $url, 'title' => $title]);
     }
 
-    public function update($id, Request $request){
+    public function update($id, Request $request)
+    {
 
         $user = Register::find($id);
 
@@ -147,38 +150,55 @@ class BasicController extends Controller
         $user->username = $request->username;
         $user->city = $request->city;
         $user->email = $request->email;
-        
+        // $user->image = $request->image;
+
         $user->save();
+        // $request->file('image')->store('upload');
 
         // return view('user');
 
         return redirect('/users');
-
     }
 
     public function deleted_user()
     {
         $users = Register::onlyTrashed()->get();
 
-        return view('delete-user',['users'=>$users]);
+        return view('delete-user', ['users' => $users]);
     }
 
-    public function restore($id){
+    public function restore($id)
+    {
         $user = Register::withTrashed()
-        ->where('reg_id', $id)
-        ->restore();
+            ->where('reg_id', $id)
+            ->restore();
 
         return redirect('/users');
     }
-    
-    public function force($id){
+
+    public function force($id)
+    {
         $user = Register::withTrashed()
-        ->where('reg_id', $id)
-        ->forceDelete();
+            ->where('reg_id', $id)
+            ->forceDelete();
 
         return redirect('/deleted');
     }
 
-    
 
+
+    public function viewFile()
+    {
+        return view('file');
+    }
+
+    public function uploadFile(Request $request)
+    {
+        // echo "<pre>";
+        // print_r($request->image);
+
+        // form attribute name, folder name 
+
+        $request->file('image')->store('upload');
+    }
 }

@@ -58,3 +58,8 @@ Route::get('/force/{id}', [BasicController::class, 'force'])->name('force');
 Route::get('/del', [BasicController::class, 'delSession']);
 
 Route::get('/flash', [BasicController::class, 'flash']);
+
+
+Route::get('/file', [BasicController::class, 'viewFile']);
+
+Route::post('/file', [BasicController::class, 'uploadFile']);
