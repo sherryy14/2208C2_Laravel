@@ -54,3 +54,7 @@ Route::get('/restore/{id}', [BasicController::class, 'restore'])->name('restore'
 
 Route::get('/force/{id}', [BasicController::class, 'force'])->name('force');
 
+
+Route::get('/del', [BasicController::class, 'delSession']);
+
+Route::get('/flash', [BasicController::class, 'flash']);

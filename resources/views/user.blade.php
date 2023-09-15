@@ -44,9 +44,8 @@
     </tbody>
 </table>
 </div>
-
-{{-- <pre>
-    {{print_r($users)}}
-</pre> --}}
+<div class="container">
+    {{$users->links()}}
+</div>
 
 @endsection

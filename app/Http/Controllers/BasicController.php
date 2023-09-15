@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Register;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class BasicController extends Controller
 {
@@ -64,17 +65,39 @@ class BasicController extends Controller
         $register->username = $request->username;
         $register->city = $request->city;
         $register->email = $request->email;
-        $register->password = $request->password;
+        $register->password = Hash::make($request->password);
+
         
+        session(['username' => $request->username]);       
+        session(['useremail' => $request->email]);   
+            
         $register->save();
+
+
+        // set session
+        
+        // get session
+        // $request->session()->get('username');
+
 
         return redirect('/users');
     }
 
+    function delSession(){
+        session()->forget('username');
+    }
+
+    function flash(){
+        // session()->flash('status', 'Task was successful!');
+
+        // echo session()->get('status');
+    }
+ 
     public function user()
     {
 
-        $users = Register::all();
+        // $users = Register::all();
+        $users = Register::paginate(10);
 
         // echo "<pre>";
         // print_r($users->toArray());
@@ -155,5 +178,7 @@ class BasicController extends Controller
 
         return redirect('/deleted');
     }
+
+    
 
 }
